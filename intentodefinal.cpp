@@ -340,13 +340,13 @@ class Login: public Juego {
 	        }
 	        
 	        do {
-	            cout << "Contrase�a: ";
+	            cout << "Contrase a: ";
 	            cin >> password;
-	            cout << "Repita contrase�a: ";
+	            cout << "Repita contrase a: ";
 	            cin >> confirmacion;
 	            
 	            if (password != confirmacion) {
-	                cout << "Las contrase�as no coinciden. Intente nuevamente.\n";
+	                cout << "Las contrase as no coinciden. Intente nuevamente.\n";
 	            }
 	        } while (password != confirmacion);
 	        
@@ -364,7 +364,7 @@ class Login: public Juego {
 	        string nombre, password;
 	        cout << "Usuario: ";
 	        cin >> nombre;
-	        cout << "Contrase�a: ";
+	        cout << "Contrase a: ";
 	        cin >> password;
 	
 	        for (auto& jugador : jugadores) {
@@ -375,7 +375,7 @@ class Login: public Juego {
 	                    return true;
 	                } else {
 	                    jugador.incrementarIntentosFallidos();
-	                    cout << "Contrase�a incorrecta. " << jugador.getIntentosFallidos() 
+	                    cout << "Contrase a incorrecta. " << jugador.getIntentosFallidos() 
 	                         << " intentos incorrectos\n";
 	                    if (jugador.getIntentosFallidos() >= 3) {
 	                        cout << "Cuenta bloqueada por multiples intentos fallidos.\n";
@@ -431,34 +431,40 @@ void mostrarMenuJuegos() {
          << "Elija una opcion: ";
     cin >> eleccion;
     
-        switch(eleccion) {
-            case 1: {
-                if (jugadores.size() >= 2) {
-                    Gato* gato = new Gato();
-                    gato->jugadores = jugadores;
-                    gato->iniciar();
-                    delete gato;
-                } else {
-                    cout << "Se necesitan al menos 2 jugadores registrados para jugar.\n";
-                }
-                break;
+    switch(eleccion) {
+        case 1: {
+            if (jugadores.size() >= 2) {
+                Gato* gato = new Gato();
+                gato->jugadores = jugadores;
+                gato->iniciar();
+                delete gato;
+            } else {
+                cout << "Se necesitan al menos 2 jugadores registrados para jugar.\n";
             }
-            case 2: {
+            break;
+        }
+        case 2: {
+            char jugarOtraVez;
+            do {
                 Ahorcado* ahorcado = new Ahorcado();
                 ahorcado->iniciar();
                 delete ahorcado;
-                break;
-            }
-            case 3:
-                cout << "Gato AI en desarrollo...\n";
-                break;
-            case 4:
-                cout << "Cerrando sesion...\n";
-                break;
-            default:
-                cout << "Opcion invalida\n";
+
+                cout << "¿Deseas jugar otra vez? (s/n): ";
+                cin >> jugarOtraVez;
+            } while (jugarOtraVez == 's' || jugarOtraVez == 'S');
+            break;
         }
+        case 3:
+            cout << "Gato AI en desarrollo...\n";
+            break;
+        case 4:
+            cout << "Cerrando sesion...\n";
+            break;
+        default:
+            cout << "Opcion invalida\n";
     }
+}
 
 };
 
