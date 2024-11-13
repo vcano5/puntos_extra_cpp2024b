@@ -3,6 +3,7 @@
 #include <vector>
 #include <memory>
 #include <set>
+#include <ctime>
 using namespace std;
 
 // Clase base para los elementos del juego
@@ -101,9 +102,9 @@ class Ahorcado : public Juego {
         
         string seleccionarPalabra() {
             int categoria;
-            cout << "Seleccione una categoría:\n"
-                 << "1. Nombres\n2. Colores\n3. Países\n4. Útiles\n5. Animales\n"
-                 << "Categoría: ";
+            cout << "Seleccione una categoria:\n"
+                 << "1. Nombres\n2. Colores\n3. Paises\n4. Utiles\n5. Animales\n"
+                 << "Categoria: ";
             cin >> categoria;
             srand(time(0));
             int indice = rand() % 10;
@@ -162,7 +163,7 @@ class Ahorcado : public Juego {
         }
 };
 
-// Inicialización de datos estáticos para Ahorcado
+// Inicializacion de datos estaticos para Ahorcado
 char Ahorcado::datos_nombres[10][10] = {"Andres", "Sofia", "Mateo", "Ana","Lucia", "Hugo", "Ian", "Carmen", "Manuel", "Maria"};
 char Ahorcado::datos_colores[10][10] = {"Rojo", "Verde", "Amarillo", "Negro", "Azul", "Rosa", "Morado", "Cafe", "Blanco", "Turquesa"};
 char Ahorcado::datos_paises[10][10] = {"Mexico", "Francia", "Peru", "Argentina", "Chile", "Colombia", "China", "Bolivia", "Venezuela", "Brasil"};
@@ -340,13 +341,13 @@ class Login: public Juego {
 	        }
 	        
 	        do {
-	            cout << "Contrase a: ";
+	            cout << "Contrasena: ";
 	            cin >> password;
-	            cout << "Repita contrase a: ";
+	            cout << "Repita contrasena: ";
 	            cin >> confirmacion;
 	            
 	            if (password != confirmacion) {
-	                cout << "Las contrase as no coinciden. Intente nuevamente.\n";
+	                cout << "Las contrasenas no coinciden. Intente nuevamente.\n";
 	            }
 	        } while (password != confirmacion);
 	        
@@ -364,7 +365,7 @@ class Login: public Juego {
 	        string nombre, password;
 	        cout << "Usuario: ";
 	        cin >> nombre;
-	        cout << "Contrase a: ";
+	        cout << "Contrasena: ";
 	        cin >> password;
 	
 	        for (auto& jugador : jugadores) {
@@ -375,7 +376,7 @@ class Login: public Juego {
 	                    return true;
 	                } else {
 	                    jugador.incrementarIntentosFallidos();
-	                    cout << "Contrase a incorrecta. " << jugador.getIntentosFallidos() 
+	                    cout << "Contrasena incorrecta. " << jugador.getIntentosFallidos() 
 	                         << " intentos incorrectos\n";
 	                    if (jugador.getIntentosFallidos() >= 3) {
 	                        cout << "Cuenta bloqueada por multiples intentos fallidos.\n";
@@ -416,6 +417,7 @@ class Login: public Juego {
 	                    break;
 	                case 3:
 	                    cout << "Hasta luego!\n";
+	                    this->enCurso = 0;
 	                    break;
 	                default:
 	                    cout << "Opcion invalida\n";
@@ -425,7 +427,7 @@ class Login: public Juego {
 	
 void mostrarMenuJuegos() {
     cout << "\n1) Jugar gato (PvP)\n"
-         << "2) Jugar ahorcado (PvP)\n"
+         << "2) Jugar ahorcado (vs AI)\n"
          << "3) Jugar gato AI\n"
          << "4) Cerrar sesion\n"
          << "Elija una opcion: ";
@@ -460,6 +462,7 @@ void mostrarMenuJuegos() {
             break;
         case 4:
             cout << "Cerrando sesion...\n";
+            this->mostrarMenu();
             break;
         default:
             cout << "Opcion invalida\n";
@@ -470,6 +473,9 @@ void mostrarMenuJuegos() {
 
 int main() {
     Login m;
-    m.mostrarMenu();
+    while(m.enCurso) {
+   		m.mostrarMenu();
+    	
+	}
     return 0;
 }
